@@ -1,7 +1,5 @@
-.test {
-    font-size: 4rem;
-}
-
-.red {
-    color: red;
+.app {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--app-background-color);
 }

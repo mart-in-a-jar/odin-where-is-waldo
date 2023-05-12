@@ -1,10 +1,43 @@
 .header {
+    position: sticky;
+    top: 0;
+    --header-height: 55px;
     display: flex;
-    height: 55px;
+    height: var(--header-height);
     justify-content: space-around;
     align-items: center;
-    background-color: rgb(110, 9, 30);
+    background-color: var(--header-color);
     font-size: 1.4rem;
     color: rgb(195, 168, 163);
     font-weight: bold;
+    border-bottom: 1px solid;
+}
+
+.found-counter {
+    .found-module {
+        position: absolute;
+        top: var(--header-height);
+        background-color: var(--module-background-color);
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 0.85em;
+        .char {
+            display: grid;
+            grid-template-columns: 80px auto;
+            align-items: center;
+            &.found {
+                filter: contrast(8%);
+                text-decoration: line-through;
+            }
+            img {
+                max-height: 100px;
+                max-width: 75px;
+                &[alt^="batman" i],
+                &[alt^="waldo" i],
+                &[alt^="spider-man" i] {
+                    transform: rotateY(180deg);
+                }
+            }
+        }
+    }
 }

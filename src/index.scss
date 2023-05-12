@@ -1,6 +1,13 @@
+:root {
+    --header-color: #6e091e;
+    --app-background-color: #6e091e;
+    --module-background-color: #520817;
+}
+
 html {
     box-sizing: border-box;
     font-family: sans-serif;
+    cursor: default;
 }
 
 *,

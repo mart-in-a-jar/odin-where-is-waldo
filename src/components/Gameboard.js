@@ -22,7 +22,7 @@ const Gameboard = ({ image }) => {
     };
 
     return (
-        <div className="game-board">
+        <div className={styles["game-board"]}>
             <img
                 className={styles.img}
                 src={image}

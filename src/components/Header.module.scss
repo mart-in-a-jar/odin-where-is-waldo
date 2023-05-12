@@ -14,10 +14,27 @@
 }
 
 .found-counter {
-    .found-module {
+    cursor: pointer;
+    user-select: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 5px;
+    &.active {
+        background-color: var(--modal-background-color);
+    }
+    span {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+    }
+    .found-modal {
+        cursor: default;
         position: absolute;
         top: var(--header-height);
-        background-color: var(--module-background-color);
+        transform: translateX(-10px);
+        background-color: var(--modal-background-color);
         padding: 15px;
         border-radius: 5px;
         font-size: 0.85em;
@@ -25,6 +42,7 @@
             display: grid;
             grid-template-columns: 80px auto;
             align-items: center;
+            margin-top: 10px;
             &.found {
                 filter: contrast(8%);
                 text-decoration: line-through;

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { light } from "@fortawesome/fontawesome-svg-core/import.macro";
 import styles from "./Header.module.scss";
 import Timer from "./Timer";
 
@@ -17,28 +19,41 @@ const Header = ({ chars }) => {
 const FoundCounter = ({ chars }) => {
     const numberOfFoundChars = chars.filter((char) => char.found).length;
 
-    const [moduleOpen, setModuleOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const handeleClick = (e) => {
+        setModalOpen((prevState) => {
+            return !prevState;
+        });
+    };
 
     return (
-        <div className={styles["found-counter"]}>
-            <span>
-                {numberOfFoundChars}/{chars.length} found
+        <div
+            className={`${styles["found-counter"]}${
+                modalOpen ? " " + styles.active : ""
+            }`}
+        >
+            <span onClick={handeleClick}>
+                {numberOfFoundChars}/{chars.length} found{" "}
+                <FontAwesomeIcon icon={light("circle-info")} />
             </span>
-            <div className={styles["found-module"]}>
-                {chars.map((char) => {
-                    return (
-                        <div
-                            className={`${styles.char}${
-                                char.found ? " " + styles.found : ""
-                            }`}
-                            key={char.id}
-                        >
-                            <img src={char.image} alt={char.name} />
-                            <div className="name">{char.name}</div>
-                        </div>
-                    );
-                })}
-            </div>
+            {modalOpen && (
+                <div className={styles["found-modal"]}>
+                    {chars.map((char) => {
+                        return (
+                            <div
+                                className={`${styles.char}${
+                                    char.found ? " " + styles.found : ""
+                                }`}
+                                key={char.id}
+                            >
+                                <img src={char.image} alt={char.name} />
+                                <div className="name">{char.name}</div>
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
         </div>
     );
 };

@@ -2,9 +2,10 @@
     position: sticky;
     top: 0;
     --header-height: 55px;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     height: var(--header-height);
-    justify-content: space-around;
+    justify-items: center;
     align-items: center;
     background-color: var(--header-color);
     font-size: 1.4rem;
@@ -14,13 +15,7 @@
 }
 
 .found-counter {
-    cursor: pointer;
     user-select: none;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    border-radius: 5px;
     &.active {
         background-color: var(--modal-background-color);
     }
@@ -58,4 +53,23 @@
             }
         }
     }
+}
+
+// buttons in header
+.found-counter {
+    height: 100%;
+    border-radius: 5px;
+}
+
+.restart,
+.found-counter span {
+    &:active {
+        background-color: var(--modal-background-color);
+    }
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 5px;
 }

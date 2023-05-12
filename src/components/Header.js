@@ -4,14 +4,14 @@ import { light } from "@fortawesome/fontawesome-svg-core/import.macro";
 import styles from "./Header.module.scss";
 import Timer from "./Timer";
 
-const Header = ({ chars }) => {
+const Header = ({ chars, restart }) => {
     return (
         <header className={styles.header}>
             <FoundCounter chars={chars} />
-            <div>
+            <div className={styles.timer}>
                 <Timer />
             </div>
-            <div>Restart</div>
+            <div className={styles.restart} onClick={restart}>Restart</div>
         </header>
     );
 };
@@ -34,7 +34,7 @@ const FoundCounter = ({ chars }) => {
             }`}
         >
             <span onClick={handeleClick}>
-                {numberOfFoundChars}/{chars.length} found{" "}
+                {numberOfFoundChars}/{chars.length}
                 <FontAwesomeIcon icon={light("circle-info")} />
             </span>
             {modalOpen && (

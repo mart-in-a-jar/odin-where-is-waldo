@@ -6,3 +6,23 @@
 .game-board {
     align-self: center;
 }
+
+.char-select {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.726);
+    color: white;
+    list-style-type: none;
+    padding: 0;
+    border-radius: 5px;
+    li {
+        border-radius: 5px;
+        height: 40px;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+            background-color: rgba(104, 104, 104, 0.459);
+        }
+    }
+}

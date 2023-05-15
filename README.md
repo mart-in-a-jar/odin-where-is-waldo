@@ -8,3 +8,5 @@
 * React
 * Material UI
   - Snackbar
+* Timer format (hh:mm:ss)
+* Popup menu on mouse, contained inside element

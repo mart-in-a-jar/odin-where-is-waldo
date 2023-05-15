@@ -1,6 +1,6 @@
 import styles from "./Gameboard.module.scss";
 import { getData } from "../firebase";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Gameboard = ({ image, chars }) => {
     const [charSelectOpen, setCharSelectOpen] = useState(false);
@@ -24,13 +24,15 @@ const Gameboard = ({ image, chars }) => {
         // take header into account (and potential other adjustments)
         const offsetY = e.target.getBoundingClientRect().y + window.scrollY;
         const offsetX = e.target.getBoundingClientRect().x + window.scrollX;
-        const clickedXPercentage = (e.pageX - offsetX) / e.target.width;
-        const clickedYPercentage = (e.pageY - offsetY) / e.target.height;
+        const clickedXPercentage = (e.pageX - offsetX) / e.target.offsetWidth;
+        const clickedYPercentage = (e.pageY - offsetY) / e.target.offsetHeight;
 
         toggleCharSelect();
 
         console.log(
-            `Clicked X: ${clickedXPercentage}%, Y: ${clickedYPercentage}%`
+            `Clicked X: ${clickedXPercentage * 100}%, Y: ${
+                clickedYPercentage * 100
+            }%`
         );
 
         // set coordinates in state, pop open menu at location and handle comparison with the character thats chosen
@@ -59,18 +61,35 @@ const Gameboard = ({ image, chars }) => {
 };
 
 const CharSelect = ({ chars, coords }) => {
-    // if too far left or down -> shift accordingly
-    // if coords.x + width-of-modal > vw -> coord.x = coord.x -width of modal
-    // same with vertical
+    const element = useRef();
+
+    const [xCoords, setXCoords] = useState(coords.x);
+    const [yCoords, setYCoords] = useState(coords.y);
+
+    const checkForOutOfBounds = () => {
+        const modalWidth = element.current.offsetWidth;
+        const modalHeight = element.current.offsetHeight;
+        if (xCoords + modalWidth > document.body.offsetWidth) {
+            setXCoords(xCoords - modalWidth);
+        }
+        if (yCoords + modalHeight > document.body.offsetHeight) {
+            setYCoords(yCoords - modalHeight);
+        }
+    };
+    
+    useEffect(() => {
+        checkForOutOfBounds();
+    }, []);
+
     const style = {
-        top: coords.y,
-        left: coords.x,
+        top: yCoords,
+        left: xCoords,
     };
 
-    const notFoundChars = chars.filter(char => !char.found)
+    const notFoundChars = chars.filter((char) => !char.found);
 
     return (
-        <ul style={style} className={styles["char-select"]}>
+        <ul style={style} className={styles["char-select"]} ref={element}>
             {notFoundChars.map((char) => {
                 return <li key={char.id}>{char.name}</li>;
             })}

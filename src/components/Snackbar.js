@@ -9,12 +9,12 @@ const Snackbar = ({ text, duration, color, display, hide }) => {
                 hide(false);
             }}
             autoHideDuration={duration}
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
         >
             <SnackbarContent
                 style={{ backgroundColor: color }}
                 message={text}
-                sx={{minWidth: "200px !important"}}
+                sx={{ minWidth: "200px !important", fontSize: "1.3rem", position: "sticky", transform: "translateY(40px) !important" }}
             />
         </MuiSnackbar>
     );

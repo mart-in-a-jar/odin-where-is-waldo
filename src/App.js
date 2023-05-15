@@ -19,6 +19,25 @@ function App() {
         setGameOver(false);
     };
 
+    const setFound = (charId) => {
+        setLevel((prevState) => {
+            return {
+                ...prevState,
+                characters: prevState.characters.map((char) => {
+                    if (char.id === charId) {
+                        return {
+                            ...char,
+                            found: true,
+                        };
+                    } else {
+                        return char;
+                    }
+                }),
+            };
+        });
+
+    };
+
     return (
         <div className={styles.app}>
             {gameOver ? (
@@ -26,7 +45,7 @@ function App() {
             ) : (
                 <>
                     <Header chars={level.characters} restart={restartGame} />
-                    <Gameboard image={level.image} chars={level.characters} />
+                    <Gameboard level={level} setFound={setFound} />
                 </>
             )}
         </div>

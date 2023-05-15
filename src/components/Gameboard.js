@@ -1,12 +1,21 @@
 import styles from "./Gameboard.module.scss";
 import { getData } from "../firebase";
 import { useEffect, useRef, useState } from "react";
+import Snackbar from "./Snackbar";
 
-const Gameboard = ({ image, chars }) => {
+const Gameboard = ({ level, setFound }) => {
+    const chars = level.characters;
     const [charSelectOpen, setCharSelectOpen] = useState(false);
     const [clickedCoords, setClickedCoords] = useState({
         x: undefined,
         y: undefined,
+    });
+    const [guess, setGuess] = useState({ x: undefined, y: undefined });
+    const [displaySnackbar, setDisplaySnackbar] = useState(false);
+    const [snackbarOptions, setSnackbarOptions] = useState({
+        text: "",
+        color: "rgba(0, 0, 0, 0.726)",
+        duration: 1500,
     });
 
     const toggleCharSelect = () => {
@@ -27,40 +36,87 @@ const Gameboard = ({ image, chars }) => {
         const clickedXPercentage = (e.pageX - offsetX) / e.target.offsetWidth;
         const clickedYPercentage = (e.pageY - offsetY) / e.target.offsetHeight;
 
+        setGuess({ x: clickedXPercentage, y: clickedYPercentage });
+
         toggleCharSelect();
 
-        console.log(
+        /* console.log(
             `Clicked X: ${clickedXPercentage * 100}%, Y: ${
                 clickedYPercentage * 100
             }%`
-        );
+        ); */
 
-        // set coordinates in state, pop open menu at location and handle comparison with the character thats chosen
     };
 
-    const handleGuess = (char) => {};
+    // Check for win
+    useEffect(() => {
+        if (chars.every((char) => char.found)) {
+            console.log("You won!");
+        }
+    }, [chars]);
+
+    const handleGuess = async (char, charName) => {
+        toggleCharSelect();
+        const charCoords = await getCoords(char);
+        if (
+            Math.abs(charCoords.x - guess.x) < 0.02 &&
+            Math.abs(charCoords.y - guess.y) < 0.005
+        ) {
+            setFound(char);
+            setDisplaySnackbar(true);
+            setSnackbarOptions((prevState) => {
+                return { ...prevState, text: `You found ${charName}!` };
+            });
+        } else {
+            setDisplaySnackbar(true);
+            setSnackbarOptions((prevState) => {
+                return { ...prevState, text: `Keep looking!`};
+            });
+        }
+    };
 
     const getCoords = async (character) => {
-        const coords = await getData("coords", character);
-        console.log(coords);
+        try {
+            const coords = await getData("coords", character);
+            if (coords) {
+                return coords;
+            } else {
+                console.error("Could not find character with id", character);
+            }
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
     };
 
     return (
         <div className={styles["game-board"]}>
             <img
                 className={styles.img}
-                src={image}
-                alt=""
+                src={level.image}
+                alt={level.name}
                 onClick={handeleClick}
             />
             {charSelectOpen && (
-                <CharSelect chars={chars} coords={clickedCoords} />
+                <CharSelect
+                    chars={chars}
+                    coords={clickedCoords}
+                    handleClick={handleGuess}
+                />
             )}
+
+            <Snackbar
+                text={snackbarOptions.text}
+                duration={snackbarOptions.duration}
+                color={snackbarOptions.color}
+                display={displaySnackbar}
+                hide={setDisplaySnackbar}
+            />
         </div>
     );
 };
 
-const CharSelect = ({ chars, coords }) => {
+const CharSelect = ({ chars, coords, handleClick }) => {
     const element = useRef();
 
     const [xCoords, setXCoords] = useState(coords.x);
@@ -76,7 +132,7 @@ const CharSelect = ({ chars, coords }) => {
             setYCoords(yCoords - modalHeight);
         }
     };
-    
+
     useEffect(() => {
         checkForOutOfBounds();
     }, []);
@@ -91,7 +147,16 @@ const CharSelect = ({ chars, coords }) => {
     return (
         <ul style={style} className={styles["char-select"]} ref={element}>
             {notFoundChars.map((char) => {
-                return <li key={char.id}>{char.name}</li>;
+                return (
+                    <li
+                        key={char.id}
+                        onClick={() => {
+                            handleClick(char.id, char.name);
+                        }}
+                    >
+                        {char.name}
+                    </li>
+                );
             })}
         </ul>
     );

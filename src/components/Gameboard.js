@@ -3,7 +3,7 @@ import { getData } from "../firebase";
 import { useEffect, useRef, useState } from "react";
 import Snackbar from "./Snackbar";
 
-const Gameboard = ({ level, setFound }) => {
+const Gameboard = ({ level, setFound, handleWin }) => {
     const chars = level.characters;
     const [charSelectOpen, setCharSelectOpen] = useState(false);
     const [clickedCoords, setClickedCoords] = useState({
@@ -45,13 +45,12 @@ const Gameboard = ({ level, setFound }) => {
                 clickedYPercentage * 100
             }%`
         ); */
-
     };
 
     // Check for win
     useEffect(() => {
         if (chars.every((char) => char.found)) {
-            console.log("You won!");
+            handleWin();
         }
     }, [chars]);
 
@@ -70,7 +69,7 @@ const Gameboard = ({ level, setFound }) => {
         } else {
             setDisplaySnackbar(true);
             setSnackbarOptions((prevState) => {
-                return { ...prevState, text: `Keep looking!`};
+                return { ...prevState, text: `Keep looking!` };
             });
         }
     };

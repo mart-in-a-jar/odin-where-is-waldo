@@ -11,7 +11,9 @@ const Header = ({ chars, restart }) => {
             <div className={styles.timer}>
                 <Timer />
             </div>
-            <div className={styles.restart} onClick={restart}>Restart</div>
+            <div className={styles.restart} onClick={restart}>
+                Restart
+            </div>
         </header>
     );
 };
@@ -20,8 +22,12 @@ const FoundCounter = ({ chars }) => {
     const numberOfFoundChars = chars.filter((char) => char.found).length;
 
     const [modalOpen, setModalOpen] = useState(false);
+    const [hasClicked, setHasClicked] = useState(false);
 
     const handeleClick = (e) => {
+        if (hasClicked === false) {
+            setHasClicked(true);
+        }
         setModalOpen((prevState) => {
             return !prevState;
         });
@@ -31,7 +37,7 @@ const FoundCounter = ({ chars }) => {
         <div
             className={`${styles["found-counter"]}${
                 modalOpen ? " " + styles.active : ""
-            }`}
+            }${hasClicked ? "" : " " + styles["not-clicked"]}`}
         >
             <span onClick={handeleClick}>
                 {numberOfFoundChars}/{chars.length}

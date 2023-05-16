@@ -6,14 +6,23 @@ const StartPage = ({ startGame, levels }) => {
     return (
         // Choose and set level
         <div className={styles["start-page"]}>
-            <button
-                onClick={() => {
-                    startGame(chosenLevel);
-                }}
-            >
-                Start game
-            </button>
-            <p>Insert list of maps to choose from here</p>
+            <h1>Choose level</h1>
+            <div className={styles.levels}>
+                {levels.map((level, i) => {
+                    return (
+                        <div
+                            key={level.id}
+                            className={styles.level}
+                            onClick={() => {
+                                startGame(levels[i]);
+                            }}
+                        >
+                            <h1>{level.name}</h1>
+                            <img src={level.image} alt="" />
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 };

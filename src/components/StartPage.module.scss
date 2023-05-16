@@ -1,9 +1,61 @@
 .start-page {
     min-height: 100vh;
-
-    // temp
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    
+    .levels {
+        display: grid;
+        justify-content: center;
+        gap: 15px;
+        .level {
+            border: 3px solid var(--text-color);
+            margin: 0;
+            height: 500px;
+            width: 90vw;
+            position: relative;
+            cursor: pointer;
+            &:hover {
+                transform: scale(1.01);
+            }
+            h1 {
+                z-index: 1;
+                position: absolute;
+                left: 50%;
+                bottom: 0px;
+                transform: translateX(-50%);
+                font-size: 2rem;
+                text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000,
+                    -1px 0 0 #000;
+                letter-spacing: 3px;
+                white-space: nowrap;
+            }
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 450px) {
+    .start-page {
+        .levels {
+            grid-template-columns: repeat(auto-fit, 400px);
+            width: 95%;
+            .level {
+                width: 400px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1700px) {
+    .start-page {
+        .levels {
+            width: 70%;
+        }
+    }
 }

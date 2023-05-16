@@ -1,4 +1,5 @@
 import level1_img from "./img/level1.jpg";
+import level2_img from "./img/level2.jpg";
 import ash_img from "./img/ash.webp";
 import tom_img from "./img/tom.png";
 import batman_img from "./img/batman.webp";
@@ -42,6 +43,12 @@ const levels = [
                 found: false,
             },
         ],
+    },
+    {
+        id: "level2",
+        name: "Level 2",
+        image: level2_img,
+        characters: [{}],
     },
 ];
 

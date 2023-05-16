@@ -11,3 +11,8 @@
 * Timer format (hh:mm:ss)
 * Popup menu on mouse, contained inside element
 * PWA
+* Indicate button to press 👉🏽
+
+<br/> 
+
+Images by [Egor Klyuchnyk](https://anomaly-world.com/)

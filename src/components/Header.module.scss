@@ -48,7 +48,9 @@
                 max-width: 75px;
                 &[alt^="batman" i],
                 &[alt^="waldo" i],
-                &[alt^="spider-man" i] {
+                &[alt^="spider-man" i],
+                &[alt^="crash" i],
+                &[alt^="kratos" i] {
                     transform: rotateY(180deg);
                 }
             }

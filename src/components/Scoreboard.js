@@ -1,8 +1,15 @@
 import formatTimeStamp from "../utils/formatTimestamp";
 import styles from "./Scoreboard.module.scss";
+import { getData } from "../firebase";
+
 
 const Scoreboard = ({ level, time, restart }) => {
     const timeFormated = formatTimeStamp(time / 1000, 2);
+
+    const getScores = async () => {
+        const coords = await getData("scores", level.id);
+
+    }
 
     return (
         <div className={styles.scoreboard}>

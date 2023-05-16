@@ -3,6 +3,8 @@ import { getData } from "../firebase";
 import { useEffect, useRef, useState } from "react";
 import Snackbar from "./Snackbar";
 
+const DEBUG_CLICK = false;
+
 const Gameboard = ({ level, setFound, handleWin }) => {
     const chars = level.characters;
     const [charSelectOpen, setCharSelectOpen] = useState(false);
@@ -44,11 +46,13 @@ const Gameboard = ({ level, setFound, handleWin }) => {
 
         toggleCharSelect();
 
-        /* console.log(
-            `Clicked X: ${clickedXPercentage * 100}%, Y: ${
-                clickedYPercentage * 100
-            }%`
-        ); */
+        if (DEBUG_CLICK) {
+            console.log(
+                `Clicked X: ${clickedXPercentage * 100}%, Y: ${
+                    clickedYPercentage * 100
+                }%`
+            );
+        }
     };
 
     // Check for win

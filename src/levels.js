@@ -5,6 +5,11 @@ import tom_img from "./img/tom.png";
 import batman_img from "./img/batman.webp";
 import waldo_img from "./img/waldo.png";
 import spiderMan_img from "./img/spider-man.webp";
+import groot_img from "./img/groot.webp";
+import kratos_img from "./img/kratos.webp";
+import johnny_bravo_img from "./img/johhny_bravo.webp";
+import crash_img from "./img/crash.png";
+import bart_img from "./img/bart.webp";
 
 const levels = [
     {
@@ -48,7 +53,23 @@ const levels = [
         id: "level2",
         name: "Level 2",
         image: level2_img,
-        characters: [{}],
+        characters: [
+            { id: "groot", name: "Groot", image: groot_img, found: false },
+            { id: "kratos", name: "Kratos", image: kratos_img, found: false },
+            {
+                id: "johnny_bravo",
+                name: "Johnny Bravo",
+                image: johnny_bravo_img,
+                found: false,
+            },
+            {
+                id: "crash",
+                name: "Crash Bandicoot",
+                image: crash_img,
+                found: false,
+            },
+            { id: "bart", name: "Bart Simpson", image: bart_img, found: false },
+        ],
     },
 ];
 

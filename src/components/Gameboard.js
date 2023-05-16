@@ -10,6 +10,7 @@ const Gameboard = ({ level, setFound, handleWin }) => {
         x: undefined,
         y: undefined,
     });
+    const [imageOffset, setImageOffset] = useState({ x: 0, y: 0 });
     const [guess, setGuess] = useState({ x: undefined, y: undefined });
     const [displaySnackbar, setDisplaySnackbar] = useState(false);
     const [snackbarOptions, setSnackbarOptions] = useState({
@@ -31,8 +32,11 @@ const Gameboard = ({ level, setFound, handleWin }) => {
         }
         setClickedCoords({ x: e.pageX, y: e.pageY });
         // take header into account (and potential other adjustments)
+        // this calculates the element's starting position on the x and y axis
         const offsetY = e.target.getBoundingClientRect().y + window.scrollY;
         const offsetX = e.target.getBoundingClientRect().x + window.scrollX;
+        setImageOffset({ x: offsetX, y: offsetY });
+
         const clickedXPercentage = (e.pageX - offsetX) / e.target.offsetWidth;
         const clickedYPercentage = (e.pageY - offsetY) / e.target.offsetHeight;
 
@@ -52,7 +56,7 @@ const Gameboard = ({ level, setFound, handleWin }) => {
         if (chars.every((char) => char.found)) {
             handleWin();
         }
-    }, [chars]);
+    }, [chars, handleWin]);
 
     const handleGuess = async (char, charName) => {
         toggleCharSelect();
@@ -101,6 +105,7 @@ const Gameboard = ({ level, setFound, handleWin }) => {
                     chars={chars}
                     coords={clickedCoords}
                     handleClick={handleGuess}
+                    offset={imageOffset}
                 />
             )}
 
@@ -115,7 +120,7 @@ const Gameboard = ({ level, setFound, handleWin }) => {
     );
 };
 
-const CharSelect = ({ chars, coords, handleClick }) => {
+const CharSelect = ({ chars, coords, handleClick, offset }) => {
     const element = useRef();
 
     const [xCoords, setXCoords] = useState(coords.x);
@@ -137,27 +142,34 @@ const CharSelect = ({ chars, coords, handleClick }) => {
     }, []);
 
     const style = {
-        top: yCoords,
-        left: xCoords,
+        top: yCoords - offset.y,
+        left: xCoords - offset.x,
+    };
+    const markerStyle = {
+        top: coords.y - 55,
+        left: coords.x,
     };
 
     const notFoundChars = chars.filter((char) => !char.found);
 
     return (
-        <ul style={style} className={styles["char-select"]} ref={element}>
-            {notFoundChars.map((char) => {
-                return (
-                    <li
-                        key={char.id}
-                        onClick={() => {
-                            handleClick(char.id, char.name);
-                        }}
-                    >
-                        {char.name}
-                    </li>
-                );
-            })}
-        </ul>
+        <>
+            <div style={markerStyle} className={styles["guess-marker"]}></div>
+            <ul style={style} className={styles["char-select"]} ref={element}>
+                {notFoundChars.map((char) => {
+                    return (
+                        <li
+                            key={char.id}
+                            onClick={() => {
+                                handleClick(char.id, char.name);
+                            }}
+                        >
+                            {char.name}
+                        </li>
+                    );
+                })}
+            </ul>
+        </>
     );
 };
 

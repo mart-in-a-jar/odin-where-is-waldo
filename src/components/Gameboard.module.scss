@@ -5,6 +5,19 @@
 
 .game-board {
     align-self: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.guess-marker {
+    width: 75px;
+    height: 75px;
+    background-color: rgba(163, 163, 163, 0.589);
+    border: 4px dashed white;
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
 }
 
 .char-select {

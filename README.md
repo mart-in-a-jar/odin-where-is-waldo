@@ -2,7 +2,7 @@
 
 [Firebase project](https://www.theodinproject.com/lessons/node-path-javascript-where-s-waldo-a-photo-tagging-app)
 
-[Live preview]()
+[Live preview](https://odin-waldo-app.web.app/)
 
 * Firebase
 * React

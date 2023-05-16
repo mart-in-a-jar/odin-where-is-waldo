@@ -129,7 +129,7 @@ const CharSelect = ({ chars, coords, handleClick, offset }) => {
     const checkForOutOfBounds = () => {
         const modalWidth = element.current.offsetWidth;
         const modalHeight = element.current.offsetHeight;
-        if (xCoords + modalWidth > document.body.offsetWidth) {
+        if (xCoords + modalWidth > document.body.offsetWidth - offset.x) {
             setXCoords(xCoords - modalWidth);
         }
         if (yCoords + modalHeight > document.body.offsetHeight) {
@@ -146,8 +146,8 @@ const CharSelect = ({ chars, coords, handleClick, offset }) => {
         left: xCoords - offset.x,
     };
     const markerStyle = {
-        top: coords.y - 55,
-        left: coords.x,
+        top: coords.y - offset.y,
+        left: coords.x - offset.x,
     };
 
     const notFoundChars = chars.filter((char) => !char.found);

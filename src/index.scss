@@ -1,12 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&family=Poppins:wght@400;700&display=swap");
+
 :root {
     --header-color: #6e091e;
     --app-background-color: #6e091e;
     --modal-background-color: #520817;
+    --text-color: #c3a8a3;
 }
 
 html {
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: "Lato", sans-serif;
     cursor: default;
 }
 

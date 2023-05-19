@@ -4,12 +4,14 @@
     display: flex;
     justify-content: center;
     margin-top: 10vh;
-    &>div {
+    & > div {
         display: flex;
         flex-direction: column;
+        width: 250px;
         // align-items: start;
     }
-    h1, h2 {
+    h1,
+    h2 {
         margin-bottom: 5px;
         margin-top: 40px;
     }
@@ -29,7 +31,43 @@
     }
 }
 
-.time {
+.user-time {
     font-size: 1.5rem;
     font-weight: bold;
 }
+
+.register-score {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.score-input {
+    border: 0;
+    border-radius: 3px;
+    font-family: inherit;
+    &:focus {
+        outline: none;
+    }
+}
+
+.list {
+    padding: 0;
+    list-style-position: inside;
+    .name,
+    .time {
+        display: inline-block;
+    }
+    .name {
+        margin-left: 10px;
+        width: 50%;
+    }
+    .time {
+        width: 30%;
+    }
+}
+
+/* .list-element {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+} */

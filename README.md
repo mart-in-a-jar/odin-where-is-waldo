@@ -5,7 +5,9 @@
 [Live preview](https://odin-waldo-app.web.app/)
 
 * Firebase
+  * Read/write to firestore
 * React
+* react-firebase-hooks
 * Material UI
   - Snackbar
 * Timer format (hh:mm:ss)

@@ -58,7 +58,7 @@ function App() {
         <div className={styles.app}>
             {hasWon ? (
                 <Scoreboard
-                    time={timestamp.end - timestamp.start}
+                    time={(timestamp.end - timestamp.start) / 1000}
                     level={level}
                     restart={restartGame}
                 />
@@ -67,7 +67,11 @@ function App() {
             ) : (
                 <>
                     <Header chars={level.characters} restart={restartGame} />
-                    <Gameboard level={level} setFound={setFound} handleWin={handleWin}/>
+                    <Gameboard
+                        level={level}
+                        setFound={setFound}
+                        handleWin={handleWin}
+                    />
                 </>
             )}
         </div>

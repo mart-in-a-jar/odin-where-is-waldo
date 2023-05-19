@@ -3,7 +3,6 @@ import styles from "./Scoreboard.module.scss";
 import {
     collection,
     firestore,
-    getData,
     setData,
     timestamp,
     query,
@@ -25,11 +24,6 @@ const Scoreboard = ({ level, time, restart }) => {
     const [scores, scoresAreLoading, scoresError] =
         useCollectionData(scoreQuery);
     //
-
-    /*     const getScores = async () => {
-        const scores = await getData("scores", level.id);
-        // to do
-    }; */
 
     useEffect(() => {
         if (scores) {

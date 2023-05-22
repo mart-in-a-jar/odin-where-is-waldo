@@ -1,11 +1,9 @@
 import formatTimeStamp from "../utils/formatTimestamp";
 import styles from "./Scoreboard.module.scss";
-import {
-    setData,
-    timestamp,
-    useGetHighscores,
-} from "../firebase";
+import { setData, timestamp, useGetHighscores } from "../firebase";
 import { useEffect, useState } from "react";
+
+const USER_MAX_LENGTH = 25;
 
 const Scoreboard = ({ level, time, restart }) => {
     const [user, setUser] = useState("");
@@ -30,7 +28,7 @@ const Scoreboard = ({ level, time, restart }) => {
         e.preventDefault();
 
         const data = {
-            user,
+            user: user.slice(0, USER_MAX_LENGTH),
             time,
             created: timestamp(),
         };
@@ -53,6 +51,7 @@ const Scoreboard = ({ level, time, restart }) => {
                     value={user}
                     onChange={handleUserInput}
                     placeholder="Name"
+                    maxLength={USER_MAX_LENGTH}
                 />
                 <button type="submit">Submit</button>
             </form>
@@ -68,7 +67,7 @@ const Scoreboard = ({ level, time, restart }) => {
                     <span className={styles["user-time"]}>{timeFormated}</span>
                 </p>
                 {isHighscore && !hasSubmittedScore && registerScore}
-                <div className="scores">
+                <div className={styles.scores}>
                     <h2>Highscores</h2>
                     <ol className={styles.list}>
                         {scores
@@ -79,7 +78,10 @@ const Scoreboard = ({ level, time, restart }) => {
                                           className={styles["list-element"]}
                                       >
                                           <div className={styles.name}>
-                                              {score.user}
+                                              {score.user.slice(
+                                                  0,
+                                                  USER_MAX_LENGTH
+                                              )}
                                           </div>{" "}
                                           <div className={styles.time}>
                                               {formatTimeStamp(score.time, 2)}
@@ -92,7 +94,9 @@ const Scoreboard = ({ level, time, restart }) => {
                             : scoresError}
                     </ol>
                 </div>
-                <button onClick={restart}>Play again</button>
+                <button className={styles["play-again"]} onClick={restart}>
+                    Play again
+                </button>
             </div>
         </div>
     );

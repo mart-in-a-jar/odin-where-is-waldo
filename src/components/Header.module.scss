@@ -38,6 +38,11 @@
         padding: 15px;
         border-radius: 5px;
         font-size: 0.85em;
+        h3 {
+            margin: 0;
+            text-align: center;
+            border-bottom: 2px solid;
+        }
         .char {
             display: grid;
             grid-template-columns: 80px auto;
@@ -69,7 +74,7 @@
 }
 
 .restart,
-.found-counter span {
+.found-counter > span {
     &:active {
         background-color: var(--modal-background-color);
     }

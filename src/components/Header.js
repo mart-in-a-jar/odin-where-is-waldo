@@ -22,7 +22,7 @@ const Header = ({ chars, restart }) => {
 const FoundCounter = ({ chars }) => {
     const numberOfFoundChars = chars.filter((char) => char.found).length;
 
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(true);
     const [hasClicked, setHasClicked] = useState(false);
 
     const handeleClick = (e) => {
@@ -46,6 +46,7 @@ const FoundCounter = ({ chars }) => {
             </span>
             {modalOpen && (
                 <div className={styles["found-modal"]}>
+                    <h3>To find</h3>
                     {chars.map((char) => {
                         return (
                             <div

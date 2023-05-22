@@ -1,16 +1,11 @@
 import formatTimeStamp from "../utils/formatTimestamp";
 import styles from "./Scoreboard.module.scss";
 import {
-    collection,
-    firestore,
     setData,
     timestamp,
-    query,
-    orderBy,
-    limit,
+    useGetHighscores,
 } from "../firebase";
 import { useEffect, useState } from "react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 
 const Scoreboard = ({ level, time, restart }) => {
     const [user, setUser] = useState("");
@@ -18,12 +13,7 @@ const Scoreboard = ({ level, time, restart }) => {
     const [hasSubmittedScore, setHasSubmittedScore] = useState(false);
     const timeFormated = formatTimeStamp(time, 2);
 
-    // make a custom hook for this:
-    const collectionRef = collection(firestore, `scores-${level.id}`);
-    const scoreQuery = query(collectionRef, orderBy("time"), limit(10));
-    const [scores, scoresAreLoading, scoresError] =
-        useCollectionData(scoreQuery);
-    //
+    const [scores, scoresAreLoading, scoresError] = useGetHighscores(level);
 
     useEffect(() => {
         if (scores) {
@@ -103,8 +93,6 @@ const Scoreboard = ({ level, time, restart }) => {
                     </ol>
                 </div>
                 <button onClick={restart}>Play again</button>
-                {/* get times from firestore on current elvel */}
-                {/* if time among top 10, let user register score */}
             </div>
         </div>
     );

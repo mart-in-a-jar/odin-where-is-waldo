@@ -10,6 +10,7 @@ import {
     orderBy,
     limit,
 } from "firebase/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDlLvt7p0doWssUhqo4Vj6U8YQpmY0vTfY",
@@ -38,13 +39,18 @@ const setData = async (collectionName, data) => {
     }
 };
 
+// custom hook to get live highscores
+const useGetHighscores = (level) => {
+    const collectionRef = collection(firestore, `scores-${level.id}`);
+    const scoreQuery = query(collectionRef, orderBy("time"), limit(10));
+
+    return useCollectionData(scoreQuery);
+    // grants [scores, scoresAreLoading, scoresError]
+};
+
 export {
-    firestore,
-    collection,
     serverTimestamp as timestamp,
     getData,
     setData,
-    query,
-    orderBy,
-    limit,
+    useGetHighscores
 };

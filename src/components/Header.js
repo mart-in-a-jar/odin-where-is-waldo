@@ -12,7 +12,8 @@ const Header = ({ chars, restart }) => {
                 <Timer />
             </div>
             <div className={styles.restart} onClick={restart}>
-                Restart
+                Exit{" "}
+                <FontAwesomeIcon icon={light("arrow-right-from-bracket")} />
             </div>
         </header>
     );

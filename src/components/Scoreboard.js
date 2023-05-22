@@ -102,7 +102,7 @@ const Scoreboard = ({ level, time, restart }) => {
                             : scoresError}
                     </ol>
                 </div>
-                <button onClick={restart}>Restart</button>
+                <button onClick={restart}>Play again</button>
                 {/* get times from firestore on current elvel */}
                 {/* if time among top 10, let user register score */}
             </div>

@@ -17,6 +17,28 @@ const levels = [
         name: "Level 1",
         image: level1_img,
         characters: [
+            { id: "groot", name: "Groot", image: groot_img, found: false },
+            { id: "kratos", name: "Kratos", image: kratos_img, found: false },
+            {
+                id: "johnny_bravo",
+                name: "Johnny Bravo",
+                image: johnny_bravo_img,
+                found: false,
+            },
+            {
+                id: "crash",
+                name: "Crash Bandicoot",
+                image: crash_img,
+                found: false,
+            },
+            { id: "bart", name: "Bart Simpson", image: bart_img, found: false },
+        ],
+    },
+    {
+        id: "level2",
+        name: "Level 2",
+        image: level2_img,
+        characters: [
             {
                 id: "ash",
                 name: "Ash Ketchum",
@@ -47,28 +69,6 @@ const levels = [
                 image: spiderMan_img,
                 found: false,
             },
-        ],
-    },
-    {
-        id: "level2",
-        name: "Level 2",
-        image: level2_img,
-        characters: [
-            { id: "groot", name: "Groot", image: groot_img, found: false },
-            { id: "kratos", name: "Kratos", image: kratos_img, found: false },
-            {
-                id: "johnny_bravo",
-                name: "Johnny Bravo",
-                image: johnny_bravo_img,
-                found: false,
-            },
-            {
-                id: "crash",
-                name: "Crash Bandicoot",
-                image: crash_img,
-                found: false,
-            },
-            { id: "bart", name: "Bart Simpson", image: bart_img, found: false },
         ],
     },
 ];

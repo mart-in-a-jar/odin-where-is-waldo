@@ -32,7 +32,11 @@ const Scoreboard = ({ level, time, restart }) => {
             time,
             created: timestamp(),
         };
-        await setData(`scores-${level.id}`, data);
+        try {
+            await setData(`scores-${level.id}`, data);
+        } catch (error) {
+            console.error("Could not write highscore: ", error);
+        }
 
         setHasSubmittedScore(true);
     };

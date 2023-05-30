@@ -67,7 +67,7 @@ const Gameboard = ({ level, setFound, handleWin }) => {
         const charCoords = await getCoords(char);
         if (
             Math.abs(charCoords.x - guess.x) < 0.02 &&
-            Math.abs(charCoords.y - guess.y) < 0.005
+            Math.abs(charCoords.y - guess.y) < 0.065
         ) {
             setFound(char);
             setDisplaySnackbar(true);
